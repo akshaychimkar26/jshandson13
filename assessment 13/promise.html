@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <title>Promise ASync Await</title>
+    </head>
+    <body>
+        <p>Q1)Write one example explaining how you can write a callback function.</p>
+        <p>JS</br><pre>
+            function myDisplayer(some) {
+                console.log(some);
+              }
+              
+              function myCalculator(num1, num2, myCallback) {
+                let sum = num1 + num2;
+                myCallback(sum);
+              }
+              
+              myCalculator(5, 5, myDisplayer);
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>10</p><hr>
+
+        <p>Q2)<pre>"Write a callback function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+
+            Explain callback hell.
+            Numbers
+            1
+            2
+            3
+            4
+            5
+            6
+            7"</pre></p>
+        <p>callback hell:To understand the internal working of callback hell in javascript, assume we have to achieve a task say D. To achieve task D, we need to execute a series of dependent tasks ranging from A to C asynchronously. In short, first we execute task A, we get the result and task B need to depend on result A to start its execution. Similarly, unless result B is produced we can't execute task C. This leads to the chaining of tasks from A to D, which creates a set of nested callbacks.</p>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>1 2 3 4 5 6 7</p>
+        <p>explanation:</p>By using settimeout function we can do this task easily.<hr>
+
+        <p>Q3)<pre>"Write the promise function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+
+            Numbers
+            1
+            2
+            3
+            4
+            5
+            6
+            7"</pre></p>
+        <p>JS</br><pre>const printNumber = (time,func) => {
+            return new Promise((resolve,reject) => {
+                if(func){
+                    setTimeout(() => {
+                        resolve(func());
+                    },time);
+                }
+                else{
+                    reject('Put a valid number');
+                }
+            })
+        }
+        
+        printNumber(0, () => console.log("Number Printed"));
+        .then(() => {
+            return printNumber(1000, () => console.log('1'));
+        })
+        .then(() => {
+            return printNumber(2000, () => console.log('2'));
+        })
+        .then(() => {
+            return printNumber(3000, () => console.log('3'));
+        })
+        .then(() => {
+            return printNumber(4000, () => console.log('4'));
+        })
+        .then(() => {
+            return printNumber(5000, () => console.log('5'));
+        })
+        .then(() => {
+            return printNumber(6000, () => console.log('6'));
+        })
+        .then(() => {
+            return printNumber(7000, () => console.log('7'));
+        })
+            </pre>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>1 2 3 4 5 6 7</p><hr>
+
+        <p>Q4)"Create a promise function accepting an argument, if yes is passed to the function then it should go to resolved state and print Promise Resolved, and if nothing is passed 
+            then it should go to reject the state and catch the error and print Promise Rejected "</p>
+        <p>JS</br><pre>function Prime(num){
+            return new Promise((resolve,reject) => {
+                let count=0;
+                for(let i=0;i<num/2;i++){
+                    if(num%i===0){
+                        count++;
+                    }
+                }
+                if(count===1){
+                    resolve("Number is Prime");
+                }
+                else{
+                    reject("Number is not Prime");
+                }
+            })
+        }
+        Prime(17)
+        .then((data) => console.log(data));
+        .catch((err) => console.log(err));
+            
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>Number is Prime</p><hr>
+
+        <p>Q5)Create examples to explain callback function</p>
+        <p>JS</br><pre>function myDisplayer(some) {
+            console.log(some);
+          }
+          
+          function myCalculator(num1, num2, myCallback) {
+            let sum = num1 + num2;
+            myCallback(sum);
+          }
+          
+          myCalculator(5, 5, myDisplayer);
+            </pre>
+        <p>OUTPUT</p>
+        <p>Output</br>10</p><hr>
+
+        <p>Q6)Create examples to explain callback hell function</p>
+        <p>JS</br><pre>getArticles((20, (user) => {
+            console.log("Fetch articles", user);
+            getUserData(user.username, (name) => {
+              console.log(name);
+              getAddress((name, (item) => {
+                console.log(item);
+              }
+          })
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br></p><hr>
+
+        <p>Q7)Create examples to explain promises function</p>
+        <p>JS</br><pre>let promise=new Promise((resolve,reject)=>{
+            let count=2;
+            if(count%2===0){
+                resolve(`${count} This is even`);
+            }else{
+                reject(`${count} This is odd`);
+            }
+        });promise
+        .then((x)=>console.log(x))
+        .catch((err)=>console.log(err))
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>2 This is even</p><hr>
+
+        <p>Q8)Create examples to explain async await function</p>
+        <p>JS</br><pre>async function vowelAlpha(){
+            await resolvePromise('A',2000)
+            await resolvePromise('E',3000)
+            await resolvePromise('I',4000)
+            await resolvePromise('O',2000)
+            await resolvePromise('U',7000)
+        }
+        vowelAlpha();
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br>JS</br>A E I O U</p><hr>
+
+        <p>Q9)Create examples to explain promise.all function</p>
+        <p>JS</br><pre>const promise1 = Promise.resolve(3);
+            const promise2 = 42;
+            const promise3 = new Promise((resolve, reject) => {
+              setTimeout(resolve, 100, 'foo');
+            });
+            
+            Promise.all([promise1, promise2, promise3]).then((values) => {
+              console.log(values);
+            });
+            </pre></p>
+        <p>OUTPUT</p>
+        <p>Output</br>3 42 foo</p><hr>
+
+        
